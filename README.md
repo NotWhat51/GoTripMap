@@ -23,3 +23,6 @@
 ### Здир Деним
 
 Android Developer
+
+![](./img/Denis.jpg)
+
