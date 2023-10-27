@@ -8,18 +8,23 @@
 
  Tech Lead, Team Lead, Tech Autor
 
- ![](./img/Sofa.jpg)
+ ![](./dist/img/Sofa.jpg)
 
  ### Киселев Георгий
 
  ML Developer
 
- ![](./img/Gosha.jpg)
+ ![](./dist/img/Gosha.jpg)
 
  ### Горяинов Дмитрий
 
  Backend Arhitecture Developer
 
+ ![](./dist/img/Dima.jpg)
+
 ### Здир Деним
 
 Android Developer
+
+![](./dist/img/Denis.jpg)
+
