@@ -1,7 +1,10 @@
-import wave
-import pyaudio
+import json, pyaudio
+from vosk import Model, KaldiRecognizer
 
-FRAMES_PER_BUFFER = 32000
+model = Model('vosk-model-small-ru-0.4')
+rec = KaldiRecognizer(model, 16000)
+
+FRAMES_PER_BUFFER = 8000
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
@@ -14,22 +17,23 @@ stream = p.open(
     input=True,
     frames_per_buffer=FRAMES_PER_BUFFER
 )
+stream.start_stream()
 
-print("start recording")
+def listen():
+    while True:
+        data = stream.read(
+            FRAMES_PER_BUFFER,
+            exception_on_overflow=False
+        )
+        if (rec.AcceptWaveform(data)) and (len(data) > 0):
+            answer = json.loads(rec.Result())
+            if answer['text']:
+                yield answer['text']
 
-seconds = 10
-frames = []
-for i in range(0, int(RATE/FRAMES_PER_BUFFER * seconds)):
-    data = stream.read(FRAMES_PER_BUFFER)
-    frames.append(data)
 
-stream.stop_stream()
-stream.close()
-p.terminate()
-
-obj = wave.open("output.wav", "wb")
-obj.setnchannels(CHANNELS)
-obj.setsampwidth(p.get_sample_size(FORMAT))
-obj.setframerate(RATE)
-obj.writeframes(b"".join(frames))
-obj.close()
+with open("request.txt", "w") as request_file:
+    for text in listen():
+        if text == 'конец':
+            quit()
+        else:
+            request_file.writelines(text+ '\n')
