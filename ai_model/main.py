@@ -37,3 +37,4 @@ with open("request.txt", "w") as request_file:
             quit()
         else:
             request_file.writelines(text+ '\n')
+#TODO: script for maps
