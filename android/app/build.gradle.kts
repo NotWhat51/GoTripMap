@@ -56,9 +56,11 @@ dependencies {
     val fragmentVersion = "1.7.0-alpha05"
     val roomVersion = "2.5.2"
     val datastoreVersion = "1.0.0"
-    val navigationVersion = "2.7.2"
+    val navigationVersion = "2.7.5"
     val coroutinesVersion = "1.7.3"
     val retrofitVersion = "2.9.0"
+    val materialVersion = "1.5.4"
+    implementation ("androidx.navigation:navigation-compose:$navigationVersion")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
@@ -73,6 +75,7 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.material:material:$materialVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("io.insert-koin:koin-android:$koinVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
