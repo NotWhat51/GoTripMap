@@ -1,0 +1,6 @@
+{"id": "17e28a9d-4832-437a-a3a0-28bb7dc622cf",
+  "entries": [
+    {"entryno": 1, "tsys": "ped", "time": "NOT_SPECIFIED", "maxdistance": "NOT_SPECIFIED", "mindistance": "NOT_SPECIFIED", "startpoint": "FROM_CLIENT",
+      "destpoint": {"name": "", "category": "\u0420\u00b0\u0420\u0406\u0421\u201a\u0420\u0455\u0420\u00b1\u0421\u0453\u0421\u0403"}},
+    {"entryno": 2, "tsys": "ped", "time": "NOT_SPECIFIED", "maxdistance": "NOT_SPECIFIED", "mindistance": "NOT_SPECIFIED", "startpoint": "PREVIOUS_POINT",
+      "destpoint": {"name": "", "category": "\u0420\u0458\u0420\u00b0\u0420\u0456\u0420\u00b0\u0420\u00b7\u0420\u0451\u0420\u0405\n"}}]}
