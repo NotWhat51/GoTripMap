@@ -1,5 +1,4 @@
 from rutermextract import TermExtractor
-<<<<<<< HEAD
 import pymorphy2
 
 morph = pymorphy2.MorphAnalyzer()
@@ -57,7 +56,7 @@ with open("request.txt", "r", encoding='utf-8') as request, open("keywords.txt",
         for inner_list in output_list:
             line = ' '.join(inner_list)
             keywords.write(line + '\n')
-=======
+
 term_extractor = TermExtractor()
 
 with open("request.txt", "r") as request, open("keywords.txt", "w") as keywords:
@@ -66,4 +65,3 @@ with open("request.txt", "r") as request, open("keywords.txt", "w") as keywords:
             keywords.writelines(str(term.normalized) + ' ' + str(term.count) + '\n')
 
 #JSON?
->>>>>>> 83339cca2cecfdc8b3a495fbd6f7995a922737ee
