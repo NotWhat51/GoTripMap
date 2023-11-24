@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GoTripMap</string>
+  <string name="history_title">ИСТОРИЯ</string>
+  <string name="liked_title">ИЗБРАННОЕ</string>
+  <string name="route_time">Время на маршрут: %1$s</string>
+  <string name="start_text_button">Начать</string>
+  <string name="image_not_loaded">Не удалось загрузить изображение.\nПроверьте подключение к Интернету.</string>
+  <string name="search_placeholder">Введите Ваш запрос</string>
+</resources>
