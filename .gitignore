@@ -4,6 +4,7 @@
 /android/.idea/
 /android/build/
 /android/build.gradle.kts
+/android/app/build.gradle.kts
 /android/gradle.properties
 /android/gradlew
 /android/gradlew.bat
