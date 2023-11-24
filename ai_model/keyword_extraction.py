@@ -1,5 +1,5 @@
 from rutermextract import TermExtractor
-<<<<<<< HEAD
+
 import pymorphy2
 
 morph = pymorphy2.MorphAnalyzer()
@@ -33,6 +33,12 @@ with open("request.txt", "r", encoding='utf-8') as request, open("keywords.txt",
         #приводим слова в запросе к начальной форме (так как ключевые в нач.форме)
         words = [morph.parse(word)[0].normal_form for word in words]
 
+        #ищем слова, означающие единицы времени и количество
+        if any(['минута' in words, 'час' in words]):
+            time_index = next((i for i, word in enumerate(words) if word == 'minute' or word == 'hour'), None)
+            time_units = words[time_index]
+            time_value = words[time_index - 1]
+
         #если образовалось слово, которого нет в изначальном запросе, то удаляем
         for feature in features:
             if not feature in words:
@@ -57,13 +63,3 @@ with open("request.txt", "r", encoding='utf-8') as request, open("keywords.txt",
         for inner_list in output_list:
             line = ' '.join(inner_list)
             keywords.write(line + '\n')
-=======
-term_extractor = TermExtractor()
-
-with open("request.txt", "r") as request, open("keywords.txt", "w") as keywords:
-    for line in request.readlines():
-        for term in term_extractor(line):
-            keywords.writelines(str(term.normalized) + ' ' + str(term.count) + '\n')
-
-#JSON?
->>>>>>> 83339cca2cecfdc8b3a495fbd6f7995a922737ee

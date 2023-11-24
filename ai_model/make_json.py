@@ -1,24 +1,29 @@
 import json
 import uuid
 
+#присваиваем каждому запросу свой ID
 id_ = str(uuid.uuid4())
 entries = []
+
+#тело запроса
 data = {
     "id": id_,
     "entries": []
 }
 
 tsys = ''
-#транспортные средства
-tsyssets = {'велосипед': 'bike', 'пешком': 'ped','автобус': 'bus',
-            'троллейбус': 'trolley', 'трамвай': 'tram', 'машина': 'car'}
+#транспортные средства (передается от клиента нажатием на соответствующую иконку, но текст запроса в приоритете)
+tsyssets = {'велосипед': 'bike', 'пешком': 'ped', 'автобус': 'bus',
+            'троллейбус': 'trolley', 'трамвай': 'tram', 'машина': 'car', 'такси': 'taxi'}
 
-with open("keywords.txt", "r") as keywords:
+#открываем файл с ключевыми словами
+with open("keywords.txt", "r", encoding='utf-8') as keywords:
     lines = keywords.readlines()
     i = 1
     for line in lines:
         entry = {}
         words = line.split(" ")
+        words = [word.rstrip('\n') for word in words]
         entry['entryno'] = i
         entry['tsys'] = 'ped'
 
@@ -46,7 +51,8 @@ with open("keywords.txt", "r") as keywords:
 
     data['entries'] = entries
 
-json_string = json.dumps(data)
+json_string = json.dumps(data, ensure_ascii=False, indent=4)
 
-with open("data.json", "w") as file:
+#непосредственно создание json
+with open("data.json", "w", encoding='utf-8-sig') as file:
     file.write(json_string)
