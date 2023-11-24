@@ -13,6 +13,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.android.gotripmap.R
 import com.android.gotripmap.ui.theme.AppTheme
 
+/**
+ * Отрисовка навигации внизу приложения
+ */
 @Composable
 fun BottomNavigation(
   navController: NavController

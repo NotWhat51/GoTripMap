@@ -8,27 +8,25 @@ import com.android.gotripmap.domain.entities.Coordinate
 import com.android.gotripmap.domain.entities.SearchEntry
 import com.android.gotripmap.domain.entities.Transport
 
-@Entity(
-  foreignKeys =
-  [ForeignKey(
-    onDelete = ForeignKey.CASCADE, entity = SearchEntryDbModel::class,
-    parentColumns = arrayOf("id"), childColumns = arrayOf("searchEntry")
-  )
-  ]
-)
+/**
+ * Представление маршрута в базе данных Rooms
+ */
+@Entity
 //data class для базы данных Room, хранит сведения о маршрутах
 data class RouteDbModel(
-  @PrimaryKey(autoGenerate = true)  val id: Int,
+  @PrimaryKey(autoGenerate = true)  val id: Int=0,
   @ColumnInfo val length: String,
-  @ColumnInfo val startPoint: Coordinate,
-  @ColumnInfo val startPointSummary: String, //будет ли эти даннные выдавать сервер?
-  @ColumnInfo val startPointShort: String,
-  @ColumnInfo val endPoint: Coordinate,
-  @ColumnInfo val endPointShort: String,
-  @ColumnInfo val endPointSummary: String, //будет ли эти данные выдавать сервер?
+  @ColumnInfo val startPointX: Float,
+  @ColumnInfo val startPointY: Float,
+  @ColumnInfo val startPointPlace: String,
+  @ColumnInfo val startPointAddress: String,
+  @ColumnInfo val endPointX: Float,
+  @ColumnInfo val endPointY: Float,
+  @ColumnInfo val endPointAddress: String,
+  @ColumnInfo val endPointPlace: String,
   @ColumnInfo val imageLink: String,
   @ColumnInfo val timeRequired: String,
   @ColumnInfo val transport: Transport,
-  @ColumnInfo val searchEntry: SearchEntry,
+  @ColumnInfo val searchEntry: Int,
   @ColumnInfo val liked: Boolean = false
 )

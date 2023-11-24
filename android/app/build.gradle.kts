@@ -33,6 +33,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -60,6 +61,8 @@ dependencies {
     val coroutinesVersion = "1.7.3"
     val retrofitVersion = "2.9.0"
     val materialVersion = "1.5.4"
+    val desugarVersion = "2.0.4"
+    val coilVersion = "2.5.0"
     implementation ("androidx.navigation:navigation-compose:$navigationVersion")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -78,6 +81,8 @@ dependencies {
     implementation("androidx.compose.material:material:$materialVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("io.insert-koin:koin-android:$koinVersion")
+    implementation ("io.insert-koin:koin-androidx-compose:$koinVersion")
+    implementation ("io.insert-koin:koin-androidx-navigation:$koinVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
     implementation ("androidx.datastore:datastore-preferences:$datastoreVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
@@ -90,4 +95,6 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$navigationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("io.coil-kt:coil-compose:$coilVersion")
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:$desugarVersion")
 }

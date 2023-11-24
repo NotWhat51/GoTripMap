@@ -2,7 +2,9 @@ package com.android.gotripmap.presentation.bottom_navigation
 
 import com.android.gotripmap.R
 
-//отрисовка элементов меню
+/**
+ * Элементы главного меню
+ */
 sealed class BottomItem(val iconId: Int,val route: String) {
   object Menu: BottomItem(R.drawable.menu,MENU_SCREEN)
   object Search: BottomItem(R.drawable.search,SEARCH_SCREEN)

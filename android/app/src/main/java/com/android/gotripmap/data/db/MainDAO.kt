@@ -1,6 +1,5 @@
 package com.android.gotripmap.data.db
 
-import android.app.appsearch.SearchResult
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,27 +7,38 @@ import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
-//Что мы должны хранить в базе маршрутов? Все маршруты, которые когда-либо были получены, или только избранные(+текущие)?
+/**
+ * DAO для базы данных маршрутов и запросов
+ */
 @Dao
 interface MainDAO {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertRoute(route: RouteDbModel)
+
+  @Query("DELETE FROM routedbmodel WHERE liked=0")
+  suspend fun deleteRecentRoutes()
+
   //Получение списка избранных маршрутов
   @Query("SELECT * FROM routedbmodel WHERE liked=1")
-  suspend fun getLikedRoutes(): Flow<List<RouteDbModel>>
+  fun getLikedRoutes(): Flow<List<RouteDbModel>>
 
-  //Есть ли функция удаления маршрута? А очистка истории?
+  //Получение результата последних запросов
+  @Transaction @Query("SELECT * FROM SearchEntryDbModel WHERE ID IN (SELECT currentEntry FROM CurrentEntryDbModel WHERE id=0)")
+  fun getCurrentRoutes(): Flow<List<RoutesAndEntryRelation>>
+
   @Query("UPDATE routedbmodel SET liked=not liked WHERE id=:id")
   suspend fun changeLiked(id: Int)
 
+  @Query("DELETE FROM searchentrydbmodel WHERE id NOT IN (SELECT currentEntry FROM CurrentEntryDbModel WHERE id=0)")
+  suspend fun clearHistory()
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insertEntry(route: SearchResult)
+  suspend fun insertEntry(searchEntryDbModel: SearchEntryDbModel)
+
+  @Query("INSERT OR REPLACE INTO CurrentEntryDbModel (id,currentEntry) VALUES (0,:id)")
+  suspend fun makeEntryCurrent(id: Int)
 
   @Query("SELECT * FROM searchentrydbmodel")
-  suspend fun getAllSearchEntries(): Flow<List<SearchEntryDbModel>>
-
-  @Transaction
-  @Query("SELECT * FROM searchentrydbmodel WHERE id=:id")
-  suspend fun getSearchEntryData(id: Int): RoutesAndEntryRelation
+  fun getAllSearchEntries(): Flow<List<SearchEntryDbModel>>
 
 }
