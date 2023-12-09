@@ -1,10 +1,13 @@
 package com.android.gotripmap.data.db
 
+import android.health.connect.datatypes.units.Length
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
+import com.android.gotripmap.domain.entities.Transport
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,8 +18,8 @@ interface MainDAO {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertRoute(route: RouteDbModel)
 
-  @Query("DELETE FROM routedbmodel WHERE liked=0")
-  suspend fun deleteRecentRoutes()
+  @Query("DELETE FROM routedbmodel WHERE liked=0 AND searchEntry!=:id")
+  suspend fun deleteRecentRoutes(id: Int)
 
   //Получение списка избранных маршрутов
   @Query("SELECT * FROM routedbmodel WHERE liked=1")
@@ -33,12 +36,15 @@ interface MainDAO {
   suspend fun clearHistory()
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insertEntry(searchEntryDbModel: SearchEntryDbModel)
+  suspend fun insertEntry(searchEntryDbModel: SearchEntryDbModel): Long
+
+  @Query("UPDATE searchentrydbmodel SET startPointPlace=:startPointPlace,endPointPlace=:endPointPlace,length=:length WHERE id=:id")
+  suspend fun updateEntry(id: Int,startPointPlace: String,endPointPlace: String,length: String)
 
   @Query("INSERT OR REPLACE INTO CurrentEntryDbModel (id,currentEntry) VALUES (0,:id)")
   suspend fun makeEntryCurrent(id: Int)
 
-  @Query("SELECT * FROM searchentrydbmodel")
+  @Query("SELECT * FROM searchentrydbmodel ORDER BY id DESC")
   fun getAllSearchEntries(): Flow<List<SearchEntryDbModel>>
 
 }

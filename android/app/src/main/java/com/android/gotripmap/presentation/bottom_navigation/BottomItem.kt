@@ -14,5 +14,6 @@ sealed class BottomItem(val iconId: Int,val route: String) {
     const val MENU_SCREEN = "menu_screen"
     const val SEARCH_SCREEN = "search_screen"
     const val PROFILE_SCREEN = "profile_screen"
+    const val DIALOG_SCREEN = "dialog_screen"
   }
 }

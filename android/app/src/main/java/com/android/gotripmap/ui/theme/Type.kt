@@ -19,6 +19,13 @@ val arialFamily = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+  bodyLarge = TextStyle(
+    fontFamily = arialFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    lineHeight = 14.4.sp,
+    letterSpacing = 0.5.sp
+  ),
     bodyMedium = TextStyle(
         fontFamily = arialFamily,
         fontWeight = FontWeight.Normal,
@@ -33,12 +40,26 @@ val Typography = Typography(
       lineHeight = 14.4.sp,
       letterSpacing = 0.5.sp
     ),
+    labelLarge = TextStyle(
+      fontFamily = arialFamily,
+      fontWeight = FontWeight.Bold,
+      fontSize = 14.sp,
+      lineHeight = 14.4.sp,
+      letterSpacing = 0.5.sp
+    ),
   titleSmall = TextStyle(
     fontFamily = FontFamily.SansSerif,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = 16.sp,
     letterSpacing = 1.25.sp
+  ),
+  titleMedium = TextStyle(
+    fontFamily = arialFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 20.sp,
+    lineHeight = 14.4.sp,
+    letterSpacing = 0.5.sp
   )
     /* Other default text styles to override
     titleLarge = TextStyle(

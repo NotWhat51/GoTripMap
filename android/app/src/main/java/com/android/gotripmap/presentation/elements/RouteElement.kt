@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +47,7 @@ import com.android.gotripmap.ui.theme.GreyInApp
  */
 @Composable
 fun RouteElement(route: Route, modifier: Modifier = Modifier, onLike: (Int) -> Unit) {
-  var expanded by remember {
+  var expanded by rememberSaveable {
     mutableStateOf(false)
   }
   Box(
@@ -154,7 +155,7 @@ fun AdditionalInfoRoute(route: Route) {
         },
         colors = ButtonDefaults.buttonColors(containerColor = AppTheme, contentColor = Color.Black)
       ) {
-        Text(stringResource(id = R.string.start_text_button))
+        Text(stringResource(id = R.string.start_text_button), style =  MaterialTheme.typography.labelLarge)
       }
     }
   }

@@ -2,8 +2,8 @@ package com.android.gotripmap.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.gotripmap.domain.usecases.GetHistoryUseCase
-import com.android.gotripmap.domain.usecases.MakeEntryCurrentUseCase
+import com.android.gotripmap.domain.usecases.routes.GetHistoryUseCase
+import com.android.gotripmap.domain.usecases.routes.MakeEntryCurrentUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
