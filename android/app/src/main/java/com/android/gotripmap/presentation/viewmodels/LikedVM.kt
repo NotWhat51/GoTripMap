@@ -2,10 +2,8 @@ package com.android.gotripmap.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.gotripmap.domain.entities.Route
-import com.android.gotripmap.domain.usecases.AddRouteUseCase
-import com.android.gotripmap.domain.usecases.ChangeLikedUseCase
-import com.android.gotripmap.domain.usecases.GetLikedUseCase
+import com.android.gotripmap.domain.usecases.routes.ChangeLikedUseCase
+import com.android.gotripmap.domain.usecases.routes.GetLikedUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch

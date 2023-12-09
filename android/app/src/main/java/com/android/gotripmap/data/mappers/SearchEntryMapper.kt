@@ -17,7 +17,10 @@ class SearchEntryMapper {
       id = searchEntryDbModel.id,
       entry = searchEntryDbModel.entry,
       dateTime = timestampToString(searchEntryDbModel.dateTime),
-      transport = searchEntryDbModel.transport
+      transport = searchEntryDbModel.transport,
+      startPointPlace = searchEntryDbModel.startPointPlace,
+      endPointPlace = searchEntryDbModel.endPointPlace,
+      length = searchEntryDbModel.length
     )
 
   fun mapDbListToDtList(dbList: List<SearchEntryDbModel>): List<SearchEntry> =

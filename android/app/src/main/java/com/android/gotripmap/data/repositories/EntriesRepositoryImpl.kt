@@ -1,5 +1,6 @@
 package com.android.gotripmap.data.repositories
 
+import android.health.connect.datatypes.units.Length
 import com.android.gotripmap.data.db.MainDAO
 import com.android.gotripmap.data.db.SearchEntryDbModel
 import com.android.gotripmap.data.mappers.RoutesAndEntriesMapper
@@ -15,6 +16,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -28,14 +30,6 @@ class EntriesRepositoryImpl(
   private val entriesMapper: SearchEntryMapper,
   private val routesAndEntriesMapper: RoutesAndEntriesMapper
 ) : EntriesRepository {
-
-  init {
-    val scope = CoroutineScope(Dispatchers.Default)
-    scope.launch {
-      mainDAO.insertEntry(SearchEntryDbModel(entry = "blablaggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggf", dateTime = 11111111, transport = Transport.WALKING))
-      mainDAO.insertEntry(SearchEntryDbModel(entry = "blabla2", dateTime = 1111123323, transport = Transport.WALKING))
-    }
-  }
   /**
    * История запросов
    */
@@ -46,17 +40,31 @@ class EntriesRepositoryImpl(
    * Данные для отображения на главном экране
    */
   override val currentSearchData: Flow<CurrentEntryRoutes?>
-    get() = mainDAO.getCurrentRoutes().map { if (it.size>0) routesAndEntriesMapper.mapDbToDtModel(it[0]) else null }
+    get() = mainDAO.getCurrentRoutes().map { if (it.isNotEmpty()) routesAndEntriesMapper.mapDbToDtModel(it[0]) else null }
 
-  override suspend fun insertEntry(entry: String, dateTime: LocalDateTime, current: Boolean, transport: Transport) {
+  override suspend fun updateEntry(
+    id: Int,
+    startPointPlace: String,
+    endPointPlace: String,
+    length: String
+  ) {
+    mainDAO.updateEntry(id,startPointPlace,endPointPlace,length)
+  }
+
+  override suspend fun insertEntry(entry: String, dateTime: LocalDateTime, transport: Transport): Long =
     mainDAO.insertEntry(
       SearchEntryDbModel(
         entry = entry,
-        dateTime = dateTime.toEpochSecond(ZoneOffset.of(ZoneId.systemDefault().id)),
-        transport = transport
+        dateTime = dateTime.toEpochSecond(ZoneOffset.of(
+          ZoneId.systemDefault().rules.getOffset(
+            Instant.now()).toString()
+        )),
+        transport = transport,
+        startPointPlace = null,
+        endPointPlace = null,
+        length = null
       )
     )
-  }
 
   /**
    * Функция для отображения данного запроса на главном экране

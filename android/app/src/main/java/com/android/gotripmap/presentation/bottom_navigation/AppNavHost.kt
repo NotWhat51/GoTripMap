@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.gotripmap.presentation.screens.DialogScreen
 import com.android.gotripmap.presentation.screens.MenuScreen
 import com.android.gotripmap.presentation.screens.ProfileScreen
 import com.android.gotripmap.presentation.screens.SearchScreen
@@ -24,6 +25,9 @@ fun AppNavHost(
     }
     composable(BottomItem.PROFILE_SCREEN) {
       ProfileScreen(navHostController)
+    }
+    composable(BottomItem.DIALOG_SCREEN) {
+      DialogScreen(navHostController)
     }
   }
 }

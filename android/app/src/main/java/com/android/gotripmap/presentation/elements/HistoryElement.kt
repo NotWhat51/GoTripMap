@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -42,7 +43,8 @@ fun HistoryElement(
 ) {
   Row(
     modifier
-      .fillMaxWidth().clickable { onClick(searchEntry.id) }
+      .fillMaxWidth()
+      .clickable { onClick(searchEntry.id) }
   ) {
     Column(modifier.padding(Dp(20F), Dp(0f), Dp(13f), Dp(21f))) {
       Text(
@@ -55,9 +57,9 @@ fun HistoryElement(
       RouteRow(
         modifier.padding(Dp(0f), Dp(10F), Dp(0F), Dp(0F)),
         Color.Black,
-        "StartPoint",
-        "EndPoint",
-        "XX m"
+        searchEntry.startPointPlace?: stringResource(R.string.unknown),
+        searchEntry.endPointPlace?: stringResource(R.string.unknown),
+        searchEntry.length?: "??? m"
       )
     }
   }
@@ -88,15 +90,16 @@ private fun EntryRow(
     verticalAlignment = Alignment.CenterVertically
   ) {
     Text(
-      modifier = Modifier.padding(Dp(0F), Dp(0f), Dp(16f), Dp(0f)),
+      modifier = Modifier
+        .padding(Dp(0F), Dp(0f), Dp(16f), Dp(0f))
+        .weight(1f),
       text = searchEntry.entry,
       color = Color.Black,
       style = MaterialTheme.typography.bodyMedium,
       maxLines = 1,
       overflow = TextOverflow.Ellipsis
-    ) //Есть баг с длинным текстом, исправить
-    Spacer(modifier = Modifier.weight(1f))
-    ImageByTransport(Transport.WALKING)
+    )
+    ImageByTransport(searchEntry.transport)
   }
 
 }

@@ -1,8 +1,11 @@
 package com.android.gotripmap.data.mappers
 
 import com.android.gotripmap.data.db.RouteDbModel
+import com.android.gotripmap.data.pojo.RouteResponse
 import com.android.gotripmap.domain.entities.Coordinate
 import com.android.gotripmap.domain.entities.Route
+import com.android.gotripmap.domain.entities.SearchEntry
+import com.android.gotripmap.domain.entities.Transport
 
 /**
  * Маппер для маршрута
@@ -13,8 +16,8 @@ class RouteMapper {
       endPoint = Coordinate(routeDbModel.endPointX,routeDbModel.endPointY),
       length = routeDbModel.length,
       startPoint = Coordinate(routeDbModel.startPointX,routeDbModel.startPointY),
-      endPointPlace = routeDbModel.endPointAddress,
-      endPointAddress = routeDbModel.endPointPlace,
+      endPointPlace = routeDbModel.endPointPlace,
+      endPointAddress = routeDbModel.endPointAddress,
       imageLink = routeDbModel.imageLink,
       timeRequired = routeDbModel.timeRequired,
       startPointAddress = routeDbModel.startPointAddress,
@@ -23,24 +26,28 @@ class RouteMapper {
       searchEntry= routeDbModel.searchEntry,
       liked = routeDbModel.liked)
 
-  fun mapDtToDbModel(route: Route) =
-    RouteDbModel(id=route.id,
-      endPointX = route.endPoint.x,
-      endPointY = route.endPoint.y,
-      length = route.length,
-      startPointX = route.startPoint.x,
-      startPointY = route.startPoint.y,
-      endPointAddress = route.endPointPlace,
-      endPointPlace = route.endPointAddress,
-      imageLink = route.imageLink,
-      timeRequired = route.timeRequired,
-      startPointAddress = route.startPointAddress,
-      startPointPlace = route.startPointPlace,
-      transport = route.transport,
-      searchEntry = route.searchEntry,
-      liked = route.liked)
+
+  fun mapApiToDbModel(response: RouteResponse,searchEntry:SearchEntry) =
+    RouteDbModel(
+      length = response.length,
+      startPointX = response.startPointX,
+      startPointY = response.startPointY,
+      startPointPlace = response.startPointPlace,
+      startPointAddress = response.startPointAddress,
+      endPointX = response.endPointX,
+      endPointY = response.endPointY,
+      endPointPlace = response.endPointPlace,
+      endPointAddress = response.endPointAddress,
+      imageLink = response.imageLink,
+      timeRequired = response.timeRequired,
+      transport = searchEntry.transport,
+      searchEntry = searchEntry.id
+    )
 
   fun mapDbListToDtList(dbList: List<RouteDbModel>): List<Route> =
     dbList.map { mapDbToDtModel(it) }
+
+  fun mapApiListToDbList(apiList: List<RouteResponse>,searchEntry:SearchEntry): List<RouteDbModel> =
+    apiList.map { mapApiToDbModel(it, searchEntry) }
 
 }
